@@ -73,11 +73,53 @@ void Agenda::consulta(Comanda c){
 	
 }
 
-
-
-void Agenda::inserta_tasca(Comanda c){
+bool Agenda::conte_tasca(Tasca t) {
+	Rellotge clau;
+	string h, d;
+	h = t.hora_tasca();
+	d = t.data_tasca();
+	clau.modifica_hora(h);
+	clau.modifica_data(d);
+	
+	return (Calendari.count(clau)!=0);
 	
 }
+
+void Agenda::inserta_tasca(Comanda c) {
+	Tasca T;
+	Rellotge clau;
+	string t, h, d;
+	
+	t = c.titol();
+	
+	if (c.te_hora()) h = c.hora();
+	else h = R.consulta_hora();
+	
+	if (c.nombre_dates()>0) d = c.data(1);
+	else d = R.consulta_data();
+	
+	clau.modifica_hora(h);
+	clau.modifica_hora(d);
+	
+	T.llegeix_tasca(t, h, d);
+	
+	if (conte_tasca(T)) cout << "No s'ha realitzat." << endl;
+	
+	else {	
+		if (c.nombre_etiquetes()>0) {
+			int n=c.nombre_etiquetes();
+			for (int i=1; i<=n; ++i) {
+				string e = c.etiqueta(i);
+				T.afegeix_etiqueta(e);
+				}
+		}
+		
+		Calendari.insert(make_pair(clau,T));
+		
+	}
+}
+	
+			
 
 void Agenda::modifica_tasca(Comanda c){
 
