@@ -16,7 +16,6 @@ bool Tasca::comp(string a, string b) {
 }
 
 void Tasca::ordena_etiquetes() {
-	list<string>::iterator it1 = etiquetes.begin();
 	etiquetes.sort(comp);
 }
 
