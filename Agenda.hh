@@ -2,14 +2,41 @@
 	@brief Classe Agenda
 */
 
+/** @file Agenda.hh
+	@brief Classe Agenda
+*/
+
+#include <list>
+#include <map>
+#include "comanda.hh"
+#include "Rellotge.hh"
+#include "Tasca.hh"
+
+using namespace std;
+
+
 class Agenda{
 
 private:	
-list<Tasca> Menu;
-list<Tasca> Calendari;
-Rellotge R;
+	map<int, Tasca> Menu;
+	map<Rellotge, Tasca, compara> Calendari;
+	Rellotge R;
 
-bool conte_tasca(Tasca t, int Posicio_tasca) // Retorna true si la tasca t és a l’agenda i en cas que no retorna la posició on ha d’anar la nova tasca t
+	struct compara {
+    	bool operator()(Rellotge a, Rellotge b) const{
+	        if (a.consulta_data()==b.consulta_data()) {
+				if (a.consulta_hora()<b.consulta_hora()) return true;
+				else return false;
+			} 
+			else {
+				if (a.consulta_data()<b.consulta_data()) return true;
+				else return false;
+			}
+    	}
+	};
+
+
+	bool conte_tasca(Tasca t, int Posicio_tasca) // Retorna true si la tasca t és a l’agenda i en cas que no retorna la posició on ha d’anar la nova tasca t
 
 public:
 	
@@ -17,27 +44,14 @@ public:
 	/** @brief Creadora per defecte.
 		\pre cert
 		\post El resultat es una agenda nova buida sense inicialitzar el rellotge
-*/ 
+	*/ 
 	Agenda();
-	
-	/* ********************************************************************************* */
-	//Aquesta funcio desapareixera si fem la classe rellotge
-
-	/** @brief Crea agenda amb rellotge inicialitzat a 20.04.15 00:00
-		\pre cert
-		\post El resultat és una agenda amb rellotge inicialitzat a 20.04.15 i hora 00:00
-	*/
-	Agenda_ini();
-
-	/* ********************************************************************************** */
-
-
 	
 	/* Destructora */
 	/** @brief Destructora per defecte.
 		\pre Existeixi un objecte agenda
 		\post Destrueix l’agenda
-*/
+	*/
 	~Agenda();
 	
 
@@ -49,14 +63,14 @@ public:
 	void consulta_rellotge();
 
 	
-  /** @brief Consulta menu segons característiques passades per parametre explicit
+  	/** @brief Consulta menu segons característiques passades per parametre explicit
 	  \pre cert
 	  \post Escriu una llista de totes les tasques que satisfan la consulta
-  */
-  void consulta(Comanda c);
+  	*/
+  	void consulta(Comanda c);
 
 
-  /* Modificadores */
+  	/* Modificadores */
 
 	/** @brief Inserta una tasca futura a l’agenda.
 		\pre Ha d’existir una agenda
