@@ -7,7 +7,7 @@ Agenda::Agenda(){}
 Agenda::~Agenda(){}
 
 void Agenda::consulta_rellotge(){
-	cout << R.consulta_data(); 
+	cout << R.consulta_data() << " ";
 	cout << R.consulta_hora(); 
 	cout << endl;
 
