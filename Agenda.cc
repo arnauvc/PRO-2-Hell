@@ -2,7 +2,12 @@
 
 #include "Agenda.hh"
 
-Agenda::Agenda(){}
+Agenda::Agenda() {
+	string h = "00:00";
+	string d = "20.04.15";
+	R.modificar_hora(h);
+	R.modificar_data(d);
+}
 
 Agenda::~Agenda(){}
 
