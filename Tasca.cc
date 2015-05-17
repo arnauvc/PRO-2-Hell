@@ -37,6 +37,10 @@ void Tasca::escriu_tasca() {
 	cout << endl;
 }
 
+string Tasca::titol_tasca() {
+	return titol;
+}
+
 string Tasca::hora_tasca() {
 	return R.consulta_hora();
 }

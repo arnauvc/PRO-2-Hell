@@ -71,6 +71,14 @@ public:
 	*/
 	void escriu_tasca();
 	
+	
+	/** @Brief Consulta el titol de la Tasca, si en té.
+		\pre Una Tasca no buida al paràmetre implícit.
+		\post Retorna el titol en format string.
+	*/
+	string titol_tasca();
+	
+	
 	/** @Brief Consulta l'hora de la Tasca, si en té.
 		\pre Una Tasca no buida al paràmetre implícit.
 		\post Retorna l'hora en format string.
