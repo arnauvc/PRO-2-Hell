@@ -97,9 +97,16 @@ public:
 
 	/** @Brief Afegeix informació.
 		\pre Tasca buida al paràmetre implícit. 
-		\post El resultat és una Tasca amb títol, data, hora i opcionalment etiquetes, al paràmetre implícit.
+		\post El resultat és una Tasca amb titol, hora i data al paràmetre implícit.
 	*/
-	void llegeix_tasca(string t, string hora, string data, const vector<string> &etiq);
+	void llegeix_tasca(string t, string hora, string data);
+	
+	
+	/** @Brief Afegeix una etiqueta.
+		\pre Tasca al paràmetre implícit. 
+		\post El resultat és una Tasca amb l'etiqueta <em>e</em> al paràmetre implícit.
+	*/
+	void afegeix_etiqueta(string e);
 
 	/** @Brief Modifica l’hora, data, títol, o afegeix etiquetes a la Tasca.
 		\pre Existeix la Tasca al paràmetre implícit, <em>c</em> és una Comanda amb 

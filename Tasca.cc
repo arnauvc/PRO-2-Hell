@@ -30,10 +30,11 @@ void Tasca::escriu_tasca() {
 	
 	list<string>::iterator it = etiquetes.begin();
 	while (it!=etiquetes.end()) {
-		if (it!=etiquetes.begin()) cout << " ";
-		cout << *it;
+		cout << " " << *it;
 		++it;
 	}
+	
+	cout << endl;
 }
 
 string Tasca::hora_tasca() {
@@ -64,18 +65,23 @@ bool Tasca::conte_etiqueta(string e, list<string>::iterator &x) {
 }
 
 
-void Tasca::llegeix_tasca(string t, string h, string d, const vector<string> &e) {
+void Tasca::llegeix_tasca(string t, string h, string d) {
 	titol = t;
 	R.modifica_hora(h);
 	R.modifica_data(d);
 
-	int n=e.size();
-	list<string>::iterator it = etiquetes.end();
-	for (int i=0; i<n; ++i) {
-		string etiqueta=e[i];
-		etiquetes.insert(it, etiqueta);
-	}
 }
+
+void Tasca::afegeix_etiqueta(string e) {
+	list<string>::iterator x = etiquetes.begin();
+	
+	if (conte_etiqueta(e,x)) cout << "No s'ha realitzat.";
+	else {
+		etiquetes.insert(x,e);
+	}
+		
+}
+
 
 void Tasca::modifica_tasca(Comanda c) {
 	if (c.te_titol()) titol = c.titol();
