@@ -14,7 +14,7 @@ using namespace std;
 
 /** @class Tasca
     @brief Representa una <em>Tasca</em>, que consisteix en un títol, una data i hora (guardades a 
-    un <em>Rellotge</em>), i un vector d'etiquetes (pot ser buit).
+    un <em>Rellotge</em>), i una llista d'etiquetes (pot ser buida).
     */
 
 class Tasca{	
@@ -31,10 +31,16 @@ private:
 		\post Modifica el paràmetre implícit amb les seves etiquetes ordenades cronològicament.
 		
 	*/
+	void ordena_etiquetes();
 	
+	/** @Brief Funció per utilitzar sort i ordenar les etiquetes lexicològicament.
+		\pre Dos strings.
+		\post Retorna cert si a és major que b, fals altrament.
+		
+	*/
 	static bool comp(string a, string b);
 	
-	void ordena_etiquetes();
+	
 	
 	
 public:
@@ -80,8 +86,9 @@ public:
 	
 	/** @Brief Consulta si el paràmetre implícit conté certa etiqueta.
 		\pre Una Tasca no buida al paràmetre implícit.
-		\post Si conté <em>e</em> retorna cert i <em>x</em> és la posició de
-		l'etiqueta, altrament retorna fals. 
+		\post Si conté <em>e</em> retorna cert i <em>x</em> és un iterator a la posició de
+		l'etiqueta, altrament retorna fals i <em>x</em> és un iterator a l'element posterior de la posició
+		on hauria de ser inserida la nova etiqueta. 
 	*/
 	bool conte_etiqueta(string e, list<string>::iterator &x);
 
@@ -89,7 +96,7 @@ public:
 	/*Modificadores*/
 
 	/** @Brief Afegeix informació.
-		\pre Tasca buida al paràmetre implícit. <em>c</em> és una Comanda que conté el títol, data, hora i etiquetes de la Tasca.
+		\pre Tasca buida al paràmetre implícit. 
 		\post El resultat és una Tasca amb títol, data, hora i opcionalment etiquetes, al paràmetre implícit.
 	*/
 	void llegeix_tasca(string t, string hora, string data, const vector<string> &etiq);
