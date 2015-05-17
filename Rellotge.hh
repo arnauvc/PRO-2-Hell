@@ -19,21 +19,12 @@ public:
 	Rellotge();
 
 
-	//Aquesta és necessària? Podriem inicialitzar un rellotge buit i modificar-lo per afegir la data i hora quan creem una Agenda, similar a com ho teniem abans.
-/** @brief Crea un rellotge inicialitzat a 20.04.15, 00:00
-		\pre cert
-		\post El resultat és un rellotge inicialitzat a data 20.04.15 i hora 00:00
-	*/
-	Rellotge_ini();
-
-
-/* Destructores */
+	/* Destructores */
 	/** @brief Destructora per defecte.
 		\pre Existeix rellotge.
 		\post Destrueix el rellotge.
 */
-
-~Rellotge();
+	~Rellotge();
 
 
 /* Consultores */
