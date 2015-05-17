@@ -1,12 +1,6 @@
-// Encara falta molta cosa, però era per tenir el fitxer guardat a algun altre lloc per si de cas
-
-
 //Classe Agenda , fitxer .cc
 
 #include "Agenda.hh"
-
-
-
 
 Agenda::Agenda(){}
 
@@ -21,21 +15,59 @@ void Agenda::consulta_rellotge(){
 
 void Agenda::consulta(Comanda c){
 	Menu.clear();
-	map<int, Tasca>::const_iterator itM = Menu.begin();
-	map<Rellotge, Tasca>::const_iterator itC = Calendari.begin();
-	if(c == "?"){
-		
-		for(itC; itC != Calendari.end(); ++itC){
-			int cont = 1;
+	Rellotge R;
+	R.first = 
+	if(c == "?"){ 
+
+		//Impremeix per pantalla totes les tasques i edita el menu
+		int cont = 1;
+		for(map<Rellotge, Tasca>::const_iterator itC = Calendari.begin(); itC != Calendari.end(); ++itC){
+			
 			Menu.insert(make_pair(cont, itC->second));
-			Tasca T = itC->second;
-			cout << cont << " ";
-			T.escriu_tasca();
-			cout << endl;
+			cout << cont << " " << (itC->second).escriu_tasca() << endl;
 			++cont;
 		}
 	}
-	
+
+	else if (c.es_passat()){
+		
+		int cont = 1;
+		for(map<Rellotge, Tasca>::const_iterator itC = Calendari.begin(); itC != Calendari.upper_bound(R); ++itC){
+
+			Menu.insert(make_pair(cont, itC->second));
+			cout << cont << " " << (itC->second).escriu_tasca() << endl;
+			++cont;
+		}
+		
+	}
+	else if (c.nombre_dates() = 1){
+		int cont = 1;
+		Rellotge RL,RU;
+		RL.modificar_data(c.data(1));
+		RL.modificar_hora("00:00");
+		RU.modificar_data(c.data());
+		RU.modificar_hora("23:59");
+
+		for(map<Rellotge, Tasca>::const_iterator itC = Calendari.lower_bound(RL); itC != Calendari.upper_bound(RU); ++itC){
+
+			Menu.insert(make_pair(cont, itC->second));
+			cout << cont << " " << (itC->second).escriu_tasca() << endl;
+			++cont;
+	}
+	else if (c.nombre_dates() = 2){
+		int cont = 1;
+		Rellotge RL,RU;
+		RL.modificar_data(c.data(1));
+		RL.modificar_hora("00:00");
+		RU.modificar_data(c.data(2));
+		RU.modificar_hora("23:59");
+
+		for(map<Rellotge, Tasca>::const_iterator itC = Calendari.lower_bound(RL); itC != Calendari.upper_bound(RU); ++itC){
+
+			Menu.insert(make_pair(cont, itC->second));
+			cout << cont << " " << (itC->second).escriu_tasca() << endl;
+			++cont;
+	}
 
 			
 	
@@ -44,11 +76,7 @@ void Agenda::consulta(Comanda c){
 
 
 void Agenda::inserta_tasca(Comanda c){
-	//Recordar la funcio bool conte_tasca()
-	list<Tasca>::iterator itC = Calendari.end();
-	Tasca t;
-	Calendari.insert(it, t.insereix_tasca(c));
-	//Continue
+	
 }
 
 void Agenda::modifica_tasca(Comanda c){
@@ -119,7 +147,4 @@ void Agenda::modificar_rellotge(Comanda c){
 	}
 }
 	
-
-
-
 
