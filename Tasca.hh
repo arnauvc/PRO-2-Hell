@@ -28,7 +28,7 @@ private:
 
 	/** @Brief Ordena les etiquetes de la Tasca lexicològicament.
 		\pre Tasca amb almenys dues etiquetes al paràmetre implícit.
-		\post Modifica el paràmetre implícit amb les seves etiquetes ordenades cronològicament.
+		\post Modifica el paràmetre implícit amb les seves etiquetes ordenades lexicològicament.
 		
 	*/
 	void ordena_etiquetes();
