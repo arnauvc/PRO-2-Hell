@@ -4,12 +4,6 @@
 
 
 Tasca::Tasca() {
-	string h, d;
-	h="-";
-	d="-";	
-	R.modifica_hora(h);
-	R.modifica_data(d);
-	
 	etiquetes = list<string> ();
 }
 
