@@ -18,8 +18,8 @@ using namespace std;
 class Rellotge{
 
 private:	
-	string hora; /* Hora en format HH:MM, si no s'ha inicialitzat, serà "-". */
-	string data; /* Data en format DD:MM:AA, si no s'ha inicialitzat, serà "-". */
+	string hora; /* Hora en format HH:MM. */
+	string data; /* Data en format DD.MM.AA. */
 
 
 public:
