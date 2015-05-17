@@ -6,6 +6,8 @@
 #include "Agenda.hh"
 
 
+
+
 Agenda::Agenda(){}
 
 Agenda::~Agenda(){}
@@ -20,14 +22,23 @@ void Agenda::consulta_rellotge(){
 void Agenda::consulta(Comanda c){
 	Menu.clear();
 	map<int, Tasca>::const_iterator itM = Menu.begin();
-	map<string, Tasca>::iterator itC = Calendari.begin();
-
-	while(itC != Calendari.end()){
-		if(*itC)
-		//Continue
-
-		++itC;	
+	map<Rellotge, Tasca>::const_iterator itC = Calendari.begin();
+	if(c == "?"){
+		
+		for(itC; itC != Calendari.end(); ++itC){
+			int cont = 1;
+			Menu.insert(make_pair(cont, itC->second));
+			Tasca T = itC->second;
+			cout << cont << " ";
+			T.escriu_tasca();
+			cout << endl;
+			++cont;
+		}
 	}
+	
+
+			
+	
 }
 
 
@@ -48,18 +59,20 @@ void Agenda::esborra(Comanda c){
 	if(c.Tasca < Menu.size() and not Calendari.empty()){
 
 		Tasca T = Menu.find(c.Tasca());
-		string S = T.data_tasca() + T.hora_tasca();
-		map<string, Tasca>::const_iterator it1 = Calendari.find(S);
+		Rellote RT;
+		RT.data = T.data_tasca();
+		RT.hora = T.hora_tasca();
+		map<Rellotge, Tasca>::const_iterator it1 = Calendari.find(RT);
 
 		string com = c.tipus_esborrat();
 		if(com == "tasca") {
 			if (it1 != Calendari.end()) Calendari.erase(it1);
 		}
 		else if (com == "etiqueta"){
-			if (it1 != Calendari.end()) it2->second.esborra_estiqueta(c.etiqueta(1));
+			if (it1 != Calendari.end()) Calendari[it1] = Calendari[it1].esborra_estiqueta(c.etiqueta(1));
 		}
 		else if (com == "etiquetes"){
-			if (it1 != Calendari.end()) it2->second.esborra_etiquetes();
+			if (it1 != Calendari.end()) Calendari[it1] = Calendari[it1].esborra_etiquetes();
 		}
 	}
 }
@@ -106,6 +119,7 @@ void Agenda::modificar_rellotge(Comanda c){
 	}
 }
 	
+
 
 
 
