@@ -75,7 +75,7 @@ void Tasca::llegeix_tasca(string t, string h, string d) {
 void Tasca::afegeix_etiqueta(string e) {
 	list<string>::iterator x = etiquetes.begin();
 	
-	if (conte_etiqueta(e,x)) cout << "No s'ha realitzat.";
+	if (conte_etiqueta(e,x)) cout << "No s'ha realitzat." << endl;
 	else {
 		etiquetes.insert(x,e);
 	}
