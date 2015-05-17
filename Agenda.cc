@@ -99,7 +99,7 @@ void Agenda::inserta_tasca(Comanda c) {
 	else d = R.consulta_data();
 	
 	clau.modifica_hora(h);
-	clau.modifica_hora(d);
+	clau.modifica_data(d);
 	
 	T.llegeix_tasca(t, h, d);
 	
