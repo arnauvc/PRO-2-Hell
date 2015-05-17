@@ -26,13 +26,6 @@ private:
 	list<string> etiquetes;
 	
 
-	/** @Brief Ordena les etiquetes de la Tasca lexicològicament.
-		\pre Tasca amb almenys dues etiquetes al paràmetre implícit.
-		\post Modifica el paràmetre implícit amb les seves etiquetes ordenades lexicològicament.
-		
-	*/
-	void ordena_etiquetes();
-	
 	/** @Brief Funció per utilitzar sort i ordenar les etiquetes lexicològicament.
 		\pre Dos strings.
 		\post Retorna cert si a és major que b, fals altrament.
@@ -40,6 +33,13 @@ private:
 	*/
 	static bool comp(string a, string b);
 	
+	
+	/** @Brief Ordena les etiquetes de la Tasca lexicològicament.
+		\pre Tasca amb almenys dues etiquetes al paràmetre implícit.
+		\post Modifica el paràmetre implícit amb les seves etiquetes ordenades lexicològicament.
+		
+	*/
+	void ordena_etiquetes();
 	
 	
 	
