@@ -49,6 +49,10 @@ string Tasca::data_tasca() {
 	return R.consulta_data();
 }
 
+Rellotge Tasca::rellotge_tasca() {
+	return R;
+}
+
 
 bool Tasca::conte_etiqueta(string e, list<string>::iterator &x) {
 	ordena_etiquetes();
