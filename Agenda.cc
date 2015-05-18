@@ -24,12 +24,15 @@ void Agenda::consulta(Comanda c){
 	R.first = 
 	if(c == "?"){ 
 
-		//Impremeix per pantalla totes les tasques i edita el menu
+		//Impremeix per pantalla totes les tasques *futures i edita el menu
+		
 		int cont = 1;
-		for(map<Rellotge, Tasca>::const_iterator itC = Calendari.begin(); itC != Calendari.end(); ++itC){
-			
+		map<Rellotge,Tasca,compara>::const_iterator itC;
+		for (map<Rellotge,Tasca,compara>::const_iterator itC = Calendari.lower_bound(R); itC!=Calendari.end(); ++itC){
 			Menu.insert(make_pair(cont, itC->second));
-			cout << cont << " " << (itC->second).escriu_tasca() << endl;
+			cout << cont << " ";
+			Tasca T = itC->second;
+			T.escriu_tasca();
 			++cont;
 		}
 	}
