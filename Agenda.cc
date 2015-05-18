@@ -72,23 +72,30 @@ void Agenda::consulta(Comanda c){
 				++cont;
 			}
 		}
-	}
-	else if (c.nombre_dates() == 2){
+	} else if (c.nombre_dates() == 2){
+		//Tasques a un interval
 		int cont = 1;
 		Rellotge RL,RU;
 		RL.modifica_data(c.data(1));
 		RL.modifica_hora("00:00");
 		RU.modifica_data(c.data(2));
 		RU.modifica_hora("23:59");
+		
+		if (R.compara_dates(R.consulta_data(), c.data(2))!=2) {
+			if (R.compara_dates(R.consulta_data(), c.data(1))==2) RL.modifica_data(R.consulta_data());
 
-		for(map<Rellotge, Tasca>::const_iterator itC = Calendari.lower_bound(RL); itC != Calendari.upper_bound(RU); ++itC){
-
-			Menu.insert(make_pair(cont, itC->second));
-			cout << cont << " " << (itC->second).escriu_tasca() << endl;
-			++cont;
+			map<Rellotge,Tasca,compara>::const_iterator itC;
+			for (map<Rellotge,Tasca,compara>::const_iterator itC = Calendari.lower_bound(RL); itC!=Calendari.lower_bound(RU); ++itC){
+				Menu.insert(make_pair(cont, itC->second));
+				cout << cont << " ";
+				Tasca T = itC->second;
+				T.escriu_tasca();
+				++cont;
+			}
 		}
 	}
-	} else consulta_bool(c);
+	} else consulta_bool(c); //Nova funcio per les consultes amb expressions booleanes, recursivitat?
+	
 }
 
 bool Agenda::conte_tasca(Tasca t) {
@@ -147,7 +154,8 @@ void Agenda::modifica_tasca(Comanda c) {
 		Tasca T = Menu.find(num)->second;		
 		string h = T.hora_tasca();
 		string d = T.data_tasca();
-		Rellotge orig, clau;
+		Rellotge orig;
+		Rellotge clau;
 		orig.modifica_hora(h);
 		orig.modifica_data(d);
 		clau=orig;
@@ -233,6 +241,7 @@ void Agenda::esborra(Comanda c){
 		}
 	}
 }
+
 void Agenda::modifica_rellotge(Comanda c){
 	/*
 	En les comparacions: 
