@@ -6,6 +6,9 @@
 	@brief Classe Agenda
 */
 
+#ifndef AGENDA_HH
+#define AGENDA_HH
+
 #include <list>
 #include <map>
 #include "comanda.hh"
@@ -36,7 +39,7 @@ private:
 	};
 
 
-	bool conte_tasca(Tasca t, int Posicio_tasca) // Retorna true si la tasca t és a l’agenda i en cas que no retorna la posició on ha d’anar la nova tasca t
+	bool conte_tasca(Tasca t) // Retorna true si la tasca t és a l’agenda
 
 public:
 	
@@ -91,10 +94,13 @@ public:
 	*/
 	void esborra(Comanda c);
 	
-	};
 	
 	/** @brief Modifica l’hora, la data, o ambdues,del rellotge intern.
 		\pre El rellotge s’ha d’haver inicialitzat previament
 	\post El resultat modifica l’hora, la data, o ambdues,del rellotge intern segons parametre explicit.
 	*/
 	void modifica_rellotge(Comanda c);
+
+};
+
+#endif
