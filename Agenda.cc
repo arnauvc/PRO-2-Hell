@@ -20,9 +20,23 @@ void Agenda::consulta_rellotge(){
 
 void Agenda::consulta(Comanda c){
 	Menu.clear();
-	Rellotge R;
-	R.first = 
-	if(c == "?"){ 
+	
+	if (c.es_passat()) {
+		int cont = 1;
+		for (map<Rellotge,Tasca,compara>::const_iterator itC = Calendari.begin(); itC!=Calendari.lower_bound(R); ++itC){
+			//he canviat upper_bound per lower_bound, perquè una tasca amb la data i hora actuals
+			//es considera tasca futura
+			Menu.insert(make_pair(cont, itC->second));
+			cout << cont << " ";
+			Tasca T = itC->second;
+			T.escriu_tasca();
+			//Posar "itC->second" directament dona error a la compilació
+			++cont;
+		}
+		
+	}
+	
+	else if (c.nombre_dates() == 0){ 
 
 		//Impremeix per pantalla totes les tasques *futures i edita el menu
 		
@@ -37,22 +51,6 @@ void Agenda::consulta(Comanda c){
 		}
 	}
 
-	else if (c.es_passat()) {
-		int cont = 1;
-		for (map<Rellotge,Tasca,compara>::const_iterator itC = Calendari.begin(); itC!=Calendari.lower_bound(R); ++itC){
-			//he canviat upper_bound per lower_bound, perquè una tasca amb la data i hora actuals
-			//es considera tasca futura
-			Menu.insert(make_pair(cont, itC->second));
-			cout << cont << " ";
-			Tasca T = itC->second;
-			T.escriu_tasca();
-			//Posar "itC->second" directament dona error a la compilació
-			++cont;
-		}
-		
-	}
-		
-	}
 	else if (c.nombre_dates() == 1){
 		int cont = 1;
 		Rellotge RL,RU;
