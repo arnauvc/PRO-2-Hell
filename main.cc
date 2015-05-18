@@ -29,8 +29,7 @@ int main(){
   		 else if (c.es_esborrat()){
 			A.esborra(c);
    		 }
-}
-
+	}
 	no_sortir=c.llegir(be);
     }
 }
