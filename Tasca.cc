@@ -79,11 +79,7 @@ void Tasca::llegeix_tasca(string t, string h, string d) {
 void Tasca::afegeix_etiqueta(string e) {
 	list<string>::iterator x = etiquetes.begin();
 	
-	if (conte_etiqueta(e,x)) cout << "No s'ha realitzat." << endl;
-	else {
-		etiquetes.insert(x,e);
-	}
-		
+	if (not conte_etiqueta(e,x)) etiquetes.insert(x,e);
 }
 
 
@@ -120,7 +116,7 @@ void Tasca::esborra_etiqueta(string e) {
 }
 
 
-void Tasca::esborra_etiquetes() {	
-	etiquetes.clear();
+void Tasca::esborra_etiquetes() {
+	if (etiquetes.size()==0) cout << "No s'ha realitzat." << endl;
+	else etiquetes.clear();
 }
-
