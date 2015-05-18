@@ -169,26 +169,45 @@ void Agenda::modifica_tasca(Comanda c) {
 }
 	
 
-	
-
 void Agenda::esborra(Comanda c){ 
-	if(c.Tasca < Menu.size() and not Calendari.empty()){
-
-		Tasca T = Menu.find(c.Tasca());
-		Rellote RT;
-		RT.data = T.data_tasca();
-		RT.hora = T.hora_tasca();
-		map<Rellotge, Tasca>::const_iterator it1 = Calendari.find(RT);
-
-		string com = c.tipus_esborrat();
-		if(com == "tasca") {
-			if (it1 != Calendari.end()) Calendari.erase(it1);
-		}
-		else if (com == "etiqueta"){
-			if (it1 != Calendari.end()) Calendari[it1] = Calendari[it1].esborra_estiqueta(c.etiqueta(1));
-		}
-		else if (com == "etiquetes"){
-			if (it1 != Calendari.end()) Calendari[it1] = Calendari[it1].esborra_etiquetes();
+	if (not Calendari.empty()) {
+		//Si el numero no esta al menu ha de donar error
+		int num=c.tasca();
+		if (Menu.count(num)==0) cout << "No s'ha realitzat." << endl;
+		else {
+			map<int,Tasca>::iterator itm = Menu.find(num);
+			Tasca T = itm->second;
+			Rellotge RT;
+			RT.modifica_data(T.data_tasca());
+			RT.modifica_hora(T.hora_tasca());
+			// R.data i R.hora son privades
+			
+			if (R.compara_rellotges(RT)==2) cout << "No s'ha realitzat." << endl;
+			//Si la tasca es pasada, no es pot esborrar
+			else {
+				map<Rellotge,Tasca,compara>::iterator it1 = Calendari.find(RT);
+				//els const_iterator no permeten modificacions
+				string com = c.tipus_esborrat();
+				
+				if (com == "tasca") {
+					if (it1!=Calendari.end()) Calendari.erase(it1);
+					Menu.erase(itm);
+					//tambe hem de modificar el menu
+				} else if (com == "etiqueta"){
+					if (it1!=Calendari.end()) {
+						T.esborra_etiqueta(c.etiqueta(1));
+						it1->second = T;
+						itm->second = T;
+					}
+				}
+				else if (com == "etiquetes"){
+					if (it1!=Calendari.end()) {
+						T.esborra_etiquetes();
+						it1->second = T;
+						itm->second = T;
+					}
+				}
+			}
 		}
 	}
 }
