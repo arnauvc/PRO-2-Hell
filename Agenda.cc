@@ -114,8 +114,7 @@ void Agenda::inserta_tasca(Comanda c) {
 	T.llegeix_tasca(t, h, d);
 	
 	if (conte_tasca(T)) cout << "No s'ha realitzat." << endl;
-	else if (d<R.consulta_data()) cout << "No s'ha realitzat." << endl;
-	else if (d==R.consulta_data() and h<R.consulta_hora()) cout << "No s'ha realitzat." << endl;
+	else if (R.compara_rellotges(T.rellotge_tasca())==2) cout << "No s'ha realitzat." << endl;
 	else {	
 		if (c.nombre_etiquetes()>0) {
 			int n=c.nombre_etiquetes();
