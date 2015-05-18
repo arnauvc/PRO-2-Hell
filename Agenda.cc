@@ -34,15 +34,20 @@ void Agenda::consulta(Comanda c){
 		}
 	}
 
-	else if (c.es_passat()){
-		
+	else if (c.es_passat()) {
 		int cont = 1;
-		for(map<Rellotge, Tasca>::const_iterator itC = Calendari.begin(); itC != Calendari.upper_bound(R); ++itC){
-
+		for (map<Rellotge,Tasca,compara>::const_iterator itC = Calendari.begin(); itC!=Calendari.lower_bound(R); ++itC){
+			//he canviat upper_bound per lower_bound, perquè una tasca amb la data i hora actuals
+			//es considera tasca futura
 			Menu.insert(make_pair(cont, itC->second));
-			cout << cont << " " << (itC->second).escriu_tasca() << endl;
+			cout << cont << " ";
+			Tasca T = itC->second;
+			T.escriu_tasca();
+			//Posar "itC->second" directament dona error a la compilació
 			++cont;
 		}
+		
+	}
 		
 	}
 	else if (c.nombre_dates() == 1){
