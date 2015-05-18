@@ -25,17 +25,12 @@ private:
 	map<Rellotge, Tasca, compara> Calendari;
 	Rellotge R;
 
-	struct compara {
+	
+	struct compara{
     	bool operator()(Rellotge a, Rellotge b) const{
-	        if (a.consulta_data()==b.consulta_data()) {
-				if (a.consulta_hora()<b.consulta_hora()) return true;
-				else return false;
-			} 
-			else {
-				if (a.consulta_data()<b.consulta_data()) return true;
-				else return false;
-			}
-    	}
+	        if (a.compara_rellotges(b)==1) return true;
+		else return false;
+	  }
 	};
 
 
