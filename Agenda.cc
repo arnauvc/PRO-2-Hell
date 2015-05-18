@@ -202,15 +202,15 @@ void Agenda::modifica_rellotge(Comanda c){
 	int numdates = c.nombre_dates();
 	if(numdates == 0){ // No te data
 		if(c.te_hora()){ // Pero te hora
-				h = comparar_hores(consulta_hora(), c.hora())
+				h = compara_hores(consulta_hora(), c.hora())
 				if(h == 1) R.modifica_hora(c.hora());
 				else if (h == 2) cout << "No s'ha realitzat"
 		}
 	}
 	else if (numdates == 1){ // Te una data
 		if (c.te_hora()){ // I te una hora
-			int d = comparar_dates(R.consulta_data(), c.data(1));
-			int h = comparar_hores(consulta_hora(), c.hora());
+			int d = compara_dates(R.consulta_data(), c.data(1));
+			int h = compara_hores(consulta_hora(), c.hora());
 			if( d == 1 and h == 0) {
 				modifica_data();
 			}
@@ -223,7 +223,7 @@ void Agenda::modifica_rellotge(Comanda c){
 			}
 		}
 		else { // Te data pero no te hora
-			int d = comparar_dates(R.consulta_data(), c.data(1));
+			int d = compara_dates(R.consulta_data(), c.data(1));
 			if (d == 1) modifica_data();
 			else if (d == 2) cout << "No s'ha realitzat" <<endl;
 		}
