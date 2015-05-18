@@ -137,33 +137,50 @@ void Agenda::modifica_tasca(Comanda c) {
 	int num = c.tasca();
 	if (Menu.count(num)==0) cout << "No s'ha realitzat." << endl;
 	else {
+		bool ok=true;
 		Tasca T = Menu.find(num)->second;		
 		string h = T.hora_tasca();
 		string d = T.data_tasca();
-		Rellotge orig;
+		Rellotge orig, clau;
 		orig.modifica_hora(h);
 		orig.modifica_data(d);
+		clau=orig;
 		
 		if (R.compara_rellotges(orig)==2) cout << "No s'ha realitzat." << endl;
-		else {			
-			if (c.te_hora()) h = c.hora();	
-			if (c.nombre_dates()>0) d = c.data(1);
-			Rellotge clau;
-			clau.modifica_hora(h);
-			clau.modifica_data(d);
-			
-			if (Calendari.count(clau)>0) cout << "No s'ha realitzat." << endl;
-			if (R.compara_rellotges(clau)==2) cout << "No s'ha realitzat." << endl;
-			else {
-				T.modifica_tasca(c);
-				
-				map<int,Tasca>::iterator itmenu = Menu.find(num);
-				itmenu->second = T;
-				
-				Calendari.erase(orig);
-				Calendari.insert(make_pair(clau,T));
+		else {		
+			for (int i=1; i<=c.nombre_etiquetes(); ++i) {
+				string e = c.etiqueta(i);
+				T.afegeix_etiqueta(e);
 			}
+			
+			if (c.te_hora() or c.nombre_dates()>0) {
+				if (c.te_hora()) h = c.hora();	
+				if (c.nombre_dates()>0) d = c.data(1);				
+				clau.modifica_hora(h);
+				clau.modifica_data(d);
+			
+				if (Calendari.count(clau)>0) {
+					cout << "No s'ha realitzat." << endl;
+					ok=false;
+				} else if (R.compara_rellotges(clau)==2) {
+					cout << "No s'ha realitzat." << endl;
+					ok=false;
+				}
+				
+			}
+			
+		if (ok) {
+			T.modifica_tasca(c);
+				
+			map<int,Tasca>::iterator itmenu = Menu.find(num);
+			itmenu->second = T;
+				
+			Calendari.erase(orig);
+			Calendari.insert(make_pair(clau,T));
 		}
+		
+		}
+		
 	}
 }
 	
