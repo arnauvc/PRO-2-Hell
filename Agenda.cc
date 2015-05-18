@@ -45,7 +45,7 @@ void Agenda::consulta(Comanda c){
 		}
 		
 	}
-	else if (c.nombre_dates() = 1){
+	else if (c.nombre_dates() == 1){
 		int cont = 1;
 		Rellotge RL,RU;
 		RL.modificar_data(c.data(1));
@@ -59,7 +59,7 @@ void Agenda::consulta(Comanda c){
 			cout << cont << " " << (itC->second).escriu_tasca() << endl;
 			++cont;
 	}
-	else if (c.nombre_dates() = 2){
+	else if (c.nombre_dates() == 2){
 		int cont = 1;
 		Rellotge RL,RU;
 		RL.modificar_data(c.data(1));
