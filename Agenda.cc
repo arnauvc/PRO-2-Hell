@@ -78,6 +78,7 @@ void Agenda::consulta(Comanda c){
 			Menu.insert(make_pair(cont, itC->second));
 			cout << cont << " " << (itC->second).escriu_tasca() << endl;
 			++cont;
+		}
 	}
 
 			
@@ -143,8 +144,7 @@ void Agenda::modifica_tasca(Comanda c) {
 		orig.modifica_hora(h);
 		orig.modifica_data(d);
 		
-		if (d<R.consulta_data()) cout << "No s'ha realitzat." << endl;
-		else if (d==R.consulta_data() and h<R.consulta_hora()) cout << "No s'ha realitzat." << endl;
+		if (R.compara_rellotges(orig)==2) cout << "No s'ha realitzat." << endl;
 		else {			
 			if (c.te_hora()) h = c.hora();	
 			if (c.nombre_dates()>0) d = c.data(1);
@@ -153,8 +153,7 @@ void Agenda::modifica_tasca(Comanda c) {
 			clau.modifica_data(d);
 			
 			if (Calendari.count(clau)>0) cout << "No s'ha realitzat." << endl;
-			else if (d<R.consulta_data()) cout << "No s'ha realitzat." << endl;
-			else if (d==R.consulta_data() and h<R.consulta_hora()) cout << "No s'ha realitzat." << endl;
+			if (R.compara_rellotges(clau)==2) cout << "No s'ha realitzat." << endl;
 			else {
 				T.modifica_tasca(c);
 				
@@ -211,7 +210,6 @@ void Agenda::esborra(Comanda c){
 		}
 	}
 }
-
 void Agenda::modifica_rellotge(Comanda c){
 	/*
 	En les comparacions: 
