@@ -63,6 +63,16 @@ int Rellotge::compara_hores(string hora1, string hora2) {
 	}
 }
 
+int Rellotge::compara_rellotges(Rellotge R2) {
+	if (data==R2.consulta_data()) {
+		if (hora==R2.consulta_hora()) return 0;
+		else if (hora<R2.consulta_hora()) return 1;
+		else return 2;
+	} else {
+		if (data<R2.consulta_data()) return 1;
+		else return 2;
+	}
+}
 
 
 void Rellotge::modifica_hora(string h) {
