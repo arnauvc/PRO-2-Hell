@@ -67,6 +67,14 @@ public:
 		\post Retorna 0 si són iguals, 1 si <em>hora1</em> és anterior a <em>hora2</em>, 2 altrament.
 	*/
 	int compara_hores(string hora1, string hora2);
+	
+	
+	/** @brief Compara dos rellotges.
+		\pre El paràmetre implícit i l'explícit son dos rellotges.
+		\post Retorna 0 si són iguals, 1 si el paràmetre implícit és anterior a 
+		<em>R2</em>, 2 altrament.
+	*/
+	int compara_rellotges(Rellotge R2);
 
 
 	/* Modificadores */
