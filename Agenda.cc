@@ -253,3 +253,18 @@ void Agenda::modifica_rellotge(Comanda c){
 		}
 	}
 }
+
+/* Una implementació mes simple, amb compara_rellotges? : 
+void Agenda::modifica_rellotge(Comanda c){
+	Rellotge RC;
+	
+	if (c.nombre_dates()==1) RC.modifica_data(c.data(1));
+	else RC.modifica_data(R.consulta_data());
+	if (c.te_hora()) RC.modifica_hora(c.hora());
+	else RC.modifica_hora(R.consulta_hora());
+	
+	if (R.compara_rellotges(RC)==2) cout << "No s'ha realitzat." << endl;
+	else R=RC;
+	
+}
+*/
