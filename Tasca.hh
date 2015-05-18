@@ -91,6 +91,12 @@ public:
 	*/
 	string data_tasca();
 	
+	/** @Brief Consulta el rellotge de la Tasca.
+		\pre Una Tasca no buida al paràmetre implícit.
+		\post Retorna un rellotge.
+	*/
+	Rellotge rellotge_tasca();
+	
 	
 	/** @Brief Consulta si el paràmetre implícit conté certa etiqueta.
 		\pre Una Tasca no buida al paràmetre implícit.
