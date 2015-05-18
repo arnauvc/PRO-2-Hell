@@ -124,12 +124,47 @@ void Agenda::inserta_tasca(Comanda c) {
 		
 	}
 }
+
+
 	
+void Agenda::modifica_tasca(Comanda c) {
+	int num = c.tasca();
+	if (Menu.count(num)==0) cout << "No s'ha realitzat." << endl;
+	else {
+		Tasca T = Menu.find(num)->second;		
+		string h = T.hora_tasca();
+		string d = T.data_tasca();
+		Rellotge orig;
+		orig.modifica_hora(h);
+		orig.modifica_data(d);
+		
+		if (d<R.consulta_data()) cout << "No s'ha realitzat." << endl;
+		else if (d==R.consulta_data() and h<R.consulta_hora()) cout << "No s'ha realitzat." << endl;
+		else {			
+			if (c.te_hora()) h = c.hora();	
+			if (c.nombre_dates()>0) d = c.data(1);
+			Rellotge clau;
+			clau.modifica_hora(h);
+			clau.modifica_data(d);
 			
-
-void Agenda::modifica_tasca(Comanda c){
-
+			if (Calendari.count(clau)>0) cout << "No s'ha realitzat." << endl;
+			else if (d<R.consulta_data()) cout << "No s'ha realitzat." << endl;
+			else if (d==R.consulta_data() and h<R.consulta_hora()) cout << "No s'ha realitzat." << endl;
+			else {
+				T.modifica_tasca(c);
+				
+				map<int,Tasca>::iterator itmenu = Menu.find(num);
+				itmenu->second = T;
+				
+				Calendari.erase(orig);
+				Calendari.insert(make_pair(clau,T));
+			}
+		}
+	}
 }
+	
+
+	
 
 void Agenda::esborra(Comanda c){ 
 	if(c.Tasca < Menu.size() and not Calendari.empty()){
