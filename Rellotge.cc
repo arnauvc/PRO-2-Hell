@@ -64,12 +64,16 @@ int Rellotge::compara_hores(string hora1, string hora2) {
 }
 
 int Rellotge::compara_rellotges(Rellotge R2) {
-	if (data==R2.consulta_data()) {
-		if (hora==R2.consulta_hora()) return 0;
-		else if (hora<R2.consulta_hora()) return 1;
+	int h, d;
+	h = compara_hores(hora, R2.consulta_hora());
+	d = compara_dates(data, R2.consulta_data());
+	
+	if (d==0) {
+		if (h==0) return 0;
+		else if (h==1) return 1;
 		else return 2;
 	} else {
-		if (data<R2.consulta_data()) return 1;
+		if (d==1) return 1;
 		else return 2;
 	}
 }
