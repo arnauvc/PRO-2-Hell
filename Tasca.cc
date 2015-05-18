@@ -69,6 +69,7 @@ bool Tasca::conte_etiqueta(string e, list<string>::iterator &x) {
 		}
 		++it;
 	}
+	x=etiquetes.end();
 	return false;
 }
 
