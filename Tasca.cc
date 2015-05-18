@@ -24,8 +24,8 @@ void Tasca::ordena_etiquetes() {
 
 void Tasca::escriu_tasca() {	
 	cout << titol;
-	cout << " " << R.consulta_hora();
 	cout << " " << R.consulta_data();
+	cout << " " << R.consulta_hora();
 	ordena_etiquetes();
 	
 	list<string>::iterator it = etiquetes.begin();
