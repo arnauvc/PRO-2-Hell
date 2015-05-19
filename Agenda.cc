@@ -81,6 +81,7 @@ void Agenda::consulta(Comanda c){
 		RU.modifica_data(c.data(2));
 		RU.modifica_hora("23:59");
 		
+		if (R.compara_dates(c.data(1), c.data(2))!=2) {
 		if (R.compara_dates(R.consulta_data(), c.data(2))!=2) {
 			if (R.compara_dates(R.consulta_data(), c.data(1))==2) RL.modifica_data(R.consulta_data());
 
@@ -92,6 +93,7 @@ void Agenda::consulta(Comanda c){
 				T.escriu_tasca();
 				++cont;
 			}
+		}
 		}
 	}
 	} else consulta_bool(c); //Nova funcio per les consultes amb expressions booleanes, recursivitat?
