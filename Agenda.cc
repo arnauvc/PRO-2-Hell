@@ -20,117 +20,69 @@ void Agenda::consulta_rellotge(){
 
 void Agenda::consulta(Comanda c){
 	Menu.clear();
+	string dataR, data1, data2;
+	dataR = R.consulta_data();
+	map<Rellotge,Tasca,compara>::iterator itc1, itc2;
+	itc1=Calendari.begin();
+	itc2=itc1;
 	
 	if (not c.te_expressio()) {
-	if (c.es_passat()) {
-		int cont = 1;
-		for (map<Rellotge,Tasca,compara>::const_iterator itC = Calendari.begin(); itC!=Calendari.lower_bound(R); ++itC){
-			//he canviat upper_bound per lower_bound, perquè una tasca amb la data i hora actuals
-			//es considera tasca futura
-			Menu.insert(make_pair(cont, itC->second));
-			cout << cont << " ";
-			Tasca T = itC->second;
-			T.escriu_tasca();
-			//Posar "itC->second" directament dona error a la compilació
-			++cont;
-		}
 		
-	}
-	
-	else if (c.nombre_dates() == 0){ 
-
-		//Impremeix per pantalla totes les tasques *futures i edita el menu
 		string e;
 		bool te=false;
 		if (c.nombre_etiquetes()==1) {
 			e = c.etiqueta(1);
 			te=true;
 		}
-		int cont = 1;
-		map<Rellotge,Tasca,compara>::const_iterator itC;
-		for (map<Rellotge,Tasca,compara>::const_iterator itC = Calendari.lower_bound(R); itC!=Calendari.end(); ++itC){
+		
+		if (c.es_passat()) { 			//PASSAT 
+			itc2 = Calendari.lower_bound(R);
 			
-			Tasca T = itC->second;
+		} else if (c.nombre_dates()==0) {	//FUTUR
+			itc1=Calendari.lower_bound(R);
+			itc2=Calendari.end();
+			
+		} else if (c.nombre_dates()==1) {	//DIA
+			data1=c.data(1);
+			if (R.compara_dates(dataR,data1)!=2) {
+				Rellotge RC;
+				RC.modifica_data(data1);
+				RC.modifica_hora("00:00");
+				itc1=Calendari.lower_bound(RC);
+				RC.modifica_hora("23:59");
+				itc2=Calendari.upper_bound(RC);
+			}
+			
+		} else if (c.nombre_dates()==2) {	//INTERVAL
+			data1=c.data(1);
+			data2=c.data(2);
+			if (R.compara_dates(data1,data2)!=2) {
+				if (R.compara_dates(dataR,data2)!=2) {
+					Rellotge RC;
+					RC.modifica_data(data1);
+					RC.modifica_hora("00:00");
+					if (R.compara_dates(dataR,data1)==2) data1=dataR;
+					itc1=Calendari.lower_bound(RC);
+					RC.modifica_data(data2);
+					RC.modifica_hora("23:59");
+					itc2=Calendari.upper_bound(RC);
+				}
+			}
+		}
+		
+		int cont=1;
+		for (itc1; itc1!=itc2; ++itc1) {			
+			Tasca T = itc1->second;			
 			list<string>::iterator x;
-			if ((te and T.conte_etiqueta(e,x)) or not te) {
-				
-			Menu.insert(make_pair(cont, itC->second));
-			cout << cont << " ";
-			T.escriu_tasca();
-			++cont;
-			}
-		}
-		
-	} else if (c.nombre_dates() == 1) {		
-		// Tasques d'un dia concret
-		
-		string e;
-		bool te=false;
-		if (c.nombre_etiquetes()==1) {
-			e = c.etiqueta(1);
-			te=true;
-		}
-		
-		int cont = 1;
-		Rellotge RL,RU;
-		RL.modifica_data(c.data(1));
-		RL.modifica_hora("00:00");
-		RU.modifica_data(c.data(1));
-		RU.modifica_hora("23:59");
-		
-		if (R.compara_dates(R.consulta_data(), c.data(1))!=2) {
-			map<Rellotge,Tasca,compara>::const_iterator itC;
-			for (map<Rellotge,Tasca,compara>::const_iterator itC = Calendari.lower_bound(RL); itC!=Calendari.lower_bound(RU); ++itC){
-				Tasca T = itC->second;
-				list<string>::iterator x;
-				if ((te and T.conte_etiqueta(e,x)) or not te) {
-				
-				Menu.insert(make_pair(cont, itC->second));
+			if ((te and T.conte_etiqueta(e,x)) or not te) {				
+				Menu.insert(make_pair(cont, itc1->second));
 				cout << cont << " ";
 				T.escriu_tasca();
 				++cont;
-				}
 			}
 		}
-	} else if (c.nombre_dates() == 2){
-		//Tasques a un interval
 		
-		string e;
-		bool te=false;
-		if (c.nombre_etiquetes()==1) {
-			e = c.etiqueta(1);
-			te=true;
-		}
-		
-		int cont = 1;
-		Rellotge RL,RU;
-		RL.modifica_data(c.data(1));
-		RL.modifica_hora("00:00");
-		RU.modifica_data(c.data(2));
-		RU.modifica_hora("23:59");
-		
-		if (R.compara_dates(c.data(1), c.data(2))!=2) {
-		if (R.compara_dates(R.consulta_data(), c.data(2))!=2) {
-			if (R.compara_dates(R.consulta_data(), c.data(1))==2) RL.modifica_data(R.consulta_data());
-
-			map<Rellotge,Tasca,compara>::const_iterator itC;
-			for (map<Rellotge,Tasca,compara>::const_iterator itC = Calendari.lower_bound(RL); itC!=Calendari.lower_bound(RU); ++itC){
-				Tasca T = itC->second;
-				list<string>::iterator x;
-				if ((te and T.conte_etiqueta(e,x)) or not te) {				
-				
-				Menu.insert(make_pair(cont, itC->second));
-				cout << cont << " ";
-				
-				T.escriu_tasca();
-				++cont;
-				}
-			}
-		}
-		}
 	}
-	}
-	
 }
 
 bool Agenda::conte_tasca(Tasca t) {
