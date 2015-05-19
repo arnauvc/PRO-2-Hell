@@ -154,8 +154,7 @@ void Agenda::modifica_tasca(Comanda c) {
 		Tasca T = Menu.find(num)->second;		
 		string h = T.hora_tasca();
 		string d = T.data_tasca();
-		Rellotge orig;
-		Rellotge clau;
+		Rellotge orig, clau;
 		orig.modifica_hora(h);
 		orig.modifica_data(d);
 		clau=orig;
