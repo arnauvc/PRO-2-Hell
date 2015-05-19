@@ -26,14 +26,6 @@ void Agenda::consulta(Comanda c){
 	itc1=Calendari.begin();
 	itc2=itc1;
 	
-	if (not c.te_expressio()) {
-		
-		string e;
-		bool te=false;
-		if (c.nombre_etiquetes()==1) {
-			e = c.etiqueta(1);
-			te=true;
-		}
 		
 		if (c.es_passat()) { 			//PASSAT 
 			itc2 = Calendari.lower_bound(R);
@@ -70,20 +62,35 @@ void Agenda::consulta(Comanda c){
 			}
 		}
 		
+		// ESCRIBIM I FEM MENU: 
+		
+				
 		int cont=1;
-		for (itc1; itc1!=itc2; ++itc1) {			
+		for (itc1; itc1!=itc2; ++itc1) {
 			Tasca T = itc1->second;			
-			list<string>::iterator x;
-			if ((te and T.conte_etiqueta(e,x)) or not te) {				
-				Menu.insert(make_pair(cont, itc1->second));
-				cout << cont << " ";
-				T.escriu_tasca();
-				++cont;
+			if (correcte(T,c)) {			
+			Menu.insert(make_pair(cont, itc1->second));
+			cout << cont << " ";
+			T.escriu_tasca();
+			++cont;
 			}
 		}
-		
-	}
+}		
+
+bool Agenda::correcte(Tasca t, Comanda c) {
+	if (c.nombre_etiquetes()==1) {
+		string e = c.etiqueta(1);
+		if (t.conte_etiqueta_simple(e)) return true;
+		else return false;
+	} else if (c.te_expressio()) {
+		string exp = c.expressio();
+		int i=0;
+		if (t.compleix_expressio(exp,i)) return true;
+		else return false;
+	} else return true;
 }
+
+
 
 bool Agenda::conte_tasca(Tasca t) {
 	Rellotge clau;
@@ -115,8 +122,8 @@ void Agenda::inserta_tasca(Comanda c) {
 	
 	T.llegeix_tasca(t, h, d);
 	
-	if (conte_tasca(T)) cout << "No s'ha realitzat." << endl;
-	else if (R.compara_rellotges(T.rellotge_tasca())==2) cout << "No s'ha realitzat." << endl;
+	if (conte_tasca(T)) cout << "No s'ha realitzat" << endl;
+	else if (R.compara_rellotges(T.rellotge_tasca())==2) cout << "No s'ha realitzat" << endl;
 	else {	
 		if (c.nombre_etiquetes()>0) {
 			int n=c.nombre_etiquetes();
@@ -135,18 +142,19 @@ void Agenda::inserta_tasca(Comanda c) {
 	
 void Agenda::modifica_tasca(Comanda c) {
 	int num = c.tasca();
-	if (Menu.count(num)==0) cout << "No s'ha realitzat." << endl;
+	if (Menu.count(num)==0) cout << "No s'ha realitzat" << endl;
 	else {
 		bool ok=true;
 		Tasca T = Menu.find(num)->second;		
 		string h = T.hora_tasca();
 		string d = T.data_tasca();
-		Rellotge orig, clau;
+		Rellotge orig;
+		Rellotge clau;
 		orig.modifica_hora(h);
 		orig.modifica_data(d);
 		clau=orig;
 		
-		if (R.compara_rellotges(orig)==2) cout << "No s'ha realitzat." << endl;
+		if (R.compara_rellotges(orig)==2) cout << "No s'ha realitzat" << endl;
 		else {		
 			for (int i=1; i<=c.nombre_etiquetes(); ++i) {
 				string e = c.etiqueta(i);
@@ -160,10 +168,10 @@ void Agenda::modifica_tasca(Comanda c) {
 				clau.modifica_data(d);
 			
 				if (Calendari.count(clau)>0) {
-					cout << "No s'ha realitzat." << endl;
+					cout << "No s'ha realitzat" << endl;
 					ok=false;
 				} else if (R.compara_rellotges(clau)==2) {
-					cout << "No s'ha realitzat." << endl;
+					cout << "No s'ha realitzat" << endl;
 					ok=false;
 				}
 				
@@ -189,7 +197,7 @@ void Agenda::esborra(Comanda c){
 	if (not Calendari.empty()) {
 		//Si el numero no esta al menu ha de donar error
 		int num=c.tasca();
-		if (Menu.count(num)==0) cout << "No s'ha realitzat." << endl;
+		if (Menu.count(num)==0) cout << "No s'ha realitzat" << endl;
 		else {
 			map<int,Tasca>::iterator itm = Menu.find(num);
 			Tasca T = itm->second;
@@ -198,7 +206,7 @@ void Agenda::esborra(Comanda c){
 			RT.modifica_hora(T.hora_tasca());
 			// R.data i R.hora son privades
 			
-			if (R.compara_rellotges(RT)==2) cout << "No s'ha realitzat." << endl;
+			if (R.compara_rellotges(RT)==2) cout << "No s'ha realitzat" << endl;
 			//Si la tasca es pasada, no es pot esborrar
 			else {
 				map<Rellotge,Tasca,compara>::iterator it1 = Calendari.find(RT);
@@ -227,6 +235,8 @@ void Agenda::esborra(Comanda c){
 		}
 	}
 }
+
+
 
 void Agenda::modifica_rellotge(Comanda c){
 	/*
