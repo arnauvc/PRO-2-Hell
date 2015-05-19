@@ -20,21 +20,23 @@ using namespace std;
 
 class Agenda{
 
-private:	
-	map<int, Tasca> Menu;
-	map<Rellotge, Tasca, compara> Calendari;
-	Rellotge R;
-
-	
+private:
+  
 	struct compara{
     	bool operator()(Rellotge a, Rellotge b) const{
 	        if (a.compara_rellotges(b)==1) return true;
 		else return false;
 	  }
 	};
+	
+	map<int, Tasca> Menu;
+	map<Rellotge,Tasca,compara> Calendari;
+	Rellotge R;
+
+	
 
 
-	bool conte_tasca(Tasca t) // Retorna true si la tasca t és a l’agenda
+	bool conte_tasca(Tasca t); // Retorna true si la tasca t és a l’agenda i en cas que no retorna la posició on ha d’anar la nova tasca t
 
 public:
 	
@@ -95,7 +97,14 @@ public:
 	\post El resultat modifica l’hora, la data, o ambdues,del rellotge intern segons parametre explicit.
 	*/
 	void modifica_rellotge(Comanda c);
-
+	
+	/** @brief Comprova que <em>t</em> conte la etiqueta o expressio de <em>c</em>.
+		\pre c pot contenir etiquetes, expressions, o res.
+	\post Cert si t conte la etiqueta o expressio de c, fals altrament.
+	*/	
+	bool correcte(Tasca t, Comanda c);
+	
+	
 };
 
 #endif
