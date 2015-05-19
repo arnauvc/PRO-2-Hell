@@ -91,12 +91,20 @@ public:
 	*/
 	string data_tasca();
 	
+	
 	/** @Brief Consulta el rellotge de la Tasca.
 		\pre Una Tasca no buida al paràmetre implícit.
 		\post Retorna un rellotge.
 	*/
 	Rellotge rellotge_tasca();
 	
+	
+	/** @Brief Consulta si el paràmetre implícit conté certa etiqueta.
+		\pre Una Tasca no buida al paràmetre implícit.
+		\post Si conté <em>e</em> retorna cert, altrament retorna fals.
+	*/	
+	bool conte_etiqueta_simple(string e);
+	  
 	
 	/** @Brief Consulta si el paràmetre implícit conté certa etiqueta.
 		\pre Una Tasca no buida al paràmetre implícit.
@@ -128,6 +136,14 @@ public:
 		\post La Tasca del paràmetre implícit ha sigut modificada segons <em>c</em>.
 	*/
 	void modifica_tasca(Comanda c);
+	
+	
+	/** @Brief Esborra una etiqueta d’una Tasca existent.
+		\pre Existeix una Tasca al paràmetre implícit. El paràmetre <em>etiqueta</em> no es buit.
+		\post El paràmetre implícit no té l'etiqueta <em>etiqueta</em>. Si hi ha error escriu el missatge d'error “No 
+			s’ha realitzat”.
+	*/
+	bool compleix_expressio(const string &exp, int &i);
 	
 
 	/** @Brief Esborra una etiqueta d’una Tasca existent.
