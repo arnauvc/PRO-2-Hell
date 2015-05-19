@@ -54,6 +54,18 @@ Rellotge Tasca::rellotge_tasca() {
 }
 
 
+bool Tasca::conte_etiqueta_simple(string e) {
+	ordena_etiquetes();
+	list<string>::iterator it = etiquetes.begin();
+	while (it!=etiquetes.end()) {
+		if (*it==e) return true;
+		else if (e<*it) return false;
+		++it;
+	}
+	return false;
+}
+
+
 bool Tasca::conte_etiqueta(string e, list<string>::iterator &x) {
 	ordena_etiquetes();
 	
@@ -113,15 +125,40 @@ void Tasca::modifica_tasca(Comanda c) {
 }
 
 
+bool Tasca::compleix_expressio(const string &exp, int &i) {
+	if (exp[i]!='(') {
+		int ini=i;		
+		while (exp[i]!='.' and exp[i]!=',' and exp[i]!=')') ++i;
+		string e = exp.substr(ini,i-ini);
+		return (conte_etiqueta_simple(e));
+	
+	} else {
+		++i; 
+		bool r1 = compleix_expressio(exp,i);
+		char c = exp[i]; 
+		++i; 
+		bool r2 = compleix_expressio(exp,i);
+		++i;
+		if (c=='.') {
+			return (r1 and r2);
+		} else {
+			return (r1 or r2);
+		}
+		
+	}
+}
+
+
+
 void Tasca::esborra_etiqueta(string e) {
 	
 	list<string>::iterator x = etiquetes.begin();	
-	if (not conte_etiqueta(e,x)) cout << "No s'ha realitzat." << endl;
+	if (not conte_etiqueta(e,x)) cout << "No s'ha realitzat" << endl;
 	else etiquetes.erase(x);
 }
 
 
 void Tasca::esborra_etiquetes() {
-	if (etiquetes.size()==0) cout << "No s'ha realitzat." << endl;
+	if (etiquetes.size()==0) cout << "No s'ha realitzat" << endl;
 	else etiquetes.clear();
 }
