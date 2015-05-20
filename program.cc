@@ -1,11 +1,4 @@
 
-<<<<<<< HEAD
-
-#include "Agenda.hh"
-#include "comanda.hh"
-
-
-=======
 /**
  * @mainpage Pràctica PRO2 - Gestor de tasques
  
@@ -21,7 +14,6 @@
 
 /** @brief Programa principal.
 */
->>>>>>> origin/master
 int main(){
 
     Agenda A;
