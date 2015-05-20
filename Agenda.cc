@@ -53,7 +53,7 @@ void Agenda::consulta(Comanda c){
 					Rellotge RC;
 					RC.modifica_data(data1);
 					RC.modifica_hora("00:00");
-					if (R.compara_dates(dataR,data1)==2) data1=dataR;
+					if (R.compara_dates(dataR,data1)==2) RC=R;
 					itc1=Calendari.lower_bound(RC);
 					RC.modifica_data(data2);
 					RC.modifica_hora("23:59");
@@ -239,49 +239,6 @@ void Agenda::esborra(Comanda c){
 
 
 void Agenda::modifica_rellotge(Comanda c){
-	/*
-	En les comparacions: 
-		0 = Iguals
-		1 = Primer valor < Segon valor
-		2 = Primer valor > Segon valor
-	
- 
-	El cas d = 0 i h = 0, no cal fer res. Implica que les hores son les mateixes
-	*/
-
-	int numdates = c.nombre_dates();
-	if(numdates == 0){ // No te data
-		if(c.te_hora()){ // Pero te hora
-				h = compara_hores(consulta_hora(), c.hora())
-				if(h == 1) R.modifica_hora(c.hora());
-				else if (h == 2) cout << "No s'ha realitzat"
-		}
-	}
-	else if (numdates == 1){ // Te una data
-		if (c.te_hora()){ // I te una hora
-			int d = compara_dates(R.consulta_data(), c.data(1));
-			int h = compara_hores(consulta_hora(), c.hora());
-			if( d == 1 and h == 0) {
-				modifica_data();
-			}
-			else if(((d == 1 ) and (h == 1 or h == 2)){
-				modifica_data(c.data(1));
-				modifica_hora(c.hora());
-			}
-			else if (d == 2) {
-				cout << "No s'ha realitzat" << endl;
-			}
-		}
-		else { // Te data pero no te hora
-			int d = compara_dates(R.consulta_data(), c.data(1));
-			if (d == 1) modifica_data();
-			else if (d == 2) cout << "No s'ha realitzat" <<endl;
-		}
-	}
-}
-
-/* Una implementació mes simple, amb compara_rellotges? : 
-void Agenda::modifica_rellotge(Comanda c){
 	Rellotge RC;
 	
 	if (c.nombre_dates()==1) RC.modifica_data(c.data(1));
@@ -289,8 +246,7 @@ void Agenda::modifica_rellotge(Comanda c){
 	if (c.te_hora()) RC.modifica_hora(c.hora());
 	else RC.modifica_hora(R.consulta_hora());
 	
-	if (R.compara_rellotges(RC)==2) cout << "No s'ha realitzat." << endl;
+	if (R.compara_rellotges(RC)==2) cout << "No s'ha realitzat" << endl;
 	else R=RC;
 	
 }
-*/
