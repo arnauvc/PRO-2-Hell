@@ -126,12 +126,13 @@ void Tasca::modifica_tasca(Comanda c) {
 
 
 bool Tasca::compleix_expressio(const string &exp, int &i) {
-	if (exp[i]!='(') {
-		int ini=i;		
-		while (exp[i]!='.' and exp[i]!=',' and exp[i]!=')') ++i;
-		string e = exp.substr(ini,i-ini);
+	if (exp[i]!='(') {		
+		string e;
+		while (exp[i]!='.' and exp[i]!=',' and exp[i]!=')') {
+			e.push_back(exp[i]);
+			++i;
+		}
 		return (conte_etiqueta_simple(e));
-	
 	} else {
 		++i; 
 		bool r1 = compleix_expressio(exp,i);
@@ -144,7 +145,6 @@ bool Tasca::compleix_expressio(const string &exp, int &i) {
 		} else {
 			return (r1 or r2);
 		}
-		
 	}
 }
 
