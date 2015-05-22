@@ -27,14 +27,14 @@ void Agenda::consulta(Comanda c){
 	itc2=itc1;
 	
 		
-		if (c.es_passat()) { 			//PASSAT 
+		if (c.es_passat()) { 			
 			itc2 = Calendari.lower_bound(R);
 			
-		} else if (c.nombre_dates()==0) {	//FUTUR
+		} else if (c.nombre_dates()==0) {	
 			itc1=Calendari.lower_bound(R);
 			itc2=Calendari.end();
 			
-		} else if (c.nombre_dates()==1) {	//DIA
+		} else if (c.nombre_dates()==1) {	
 			data1=c.data(1);
 			if (R.compara_dates(dataR,data1)!=2) {
 				Rellotge RC;
@@ -45,7 +45,7 @@ void Agenda::consulta(Comanda c){
 				itc2=Calendari.upper_bound(RC);
 			}
 			
-		} else if (c.nombre_dates()==2) {	//INTERVAL
+		} else if (c.nombre_dates()==2) {	
 			data1=c.data(1);
 			data2=c.data(2);
 			if (R.compara_dates(data1,data2)!=2) {
@@ -62,9 +62,7 @@ void Agenda::consulta(Comanda c){
 			}
 		}
 		
-		// ESCRIBIM I FEM MENU: 
-		
-				
+						
 		int cont=1;
 		for (itc1; itc1!=itc2; ++itc1) {
 			Tasca T = itc1->second;			
@@ -78,16 +76,12 @@ void Agenda::consulta(Comanda c){
 }		
 
 bool Agenda::correcte(Tasca t, Comanda c) {
-	if (c.nombre_etiquetes()==1) {
-		string e = c.etiqueta(1);
-		if (t.conte_etiqueta_simple(e)) return true;
-		else return false;
-	} else if (c.te_expressio()) {
-		string exp = c.expressio();
-		int i=0;
-		if (t.compleix_expressio(exp,i)) return true;
-		else return false;
-	} else return true;
+	string exp;
+	if (c.nombre_etiquetes()==1) exp = c.etiqueta(1);
+	else if (c.te_expressio()) exp = c.expressio();	
+	else return true;
+	int i=0;
+	return (t.compleix_expressio(exp,i));
 }
 
 

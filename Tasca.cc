@@ -20,8 +20,6 @@ void Tasca::ordena_etiquetes() {
 }
 
 
-
-
 void Tasca::escriu_tasca() {	
 	cout << titol;
 	cout << " " << R.consulta_data();
@@ -126,9 +124,9 @@ void Tasca::modifica_tasca(Comanda c) {
 
 
 bool Tasca::compleix_expressio(const string &exp, int &i) {
-	if (exp[i]!='(') {		
+	if (exp[i]=='#') {		
 		string e;
-		while (exp[i]!='.' and exp[i]!=',' and exp[i]!=')') {
+		while (exp[i]!='.' and exp[i]!=',' and exp[i]!=')' and i<exp.size()) {
 			e.push_back(exp[i]);
 			++i;
 		}
@@ -149,6 +147,7 @@ bool Tasca::compleix_expressio(const string &exp, int &i) {
 }
 
 
+	
 
 void Tasca::esborra_etiqueta(string e) {
 	
