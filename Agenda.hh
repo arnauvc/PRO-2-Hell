@@ -32,11 +32,13 @@ private:
 	map<int, Tasca> Menu;
 	map<Rellotge,Tasca,compara> Calendari;
 	Rellotge R;
-
 	
-
-
-	bool conte_tasca(Tasca t); // Retorna true si la tasca t és a l’agenda i en cas que no retorna la posició on ha d’anar la nova tasca t
+	
+	/** @brief Ens diu si l'Agenda conté certa Tasca.
+		\pre Cert
+		\post Retorna cert si el p.i. conté la Tasca <em>t</em>, fals altrament.
+	*/
+	bool conte_tasca(Tasca t);
 
 public:
 	
